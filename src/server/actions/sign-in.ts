@@ -7,7 +7,7 @@ export default async function SignInAction(formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  const response = await auth.api.signInEmail({
+  await auth.api.signInEmail({
     body: {
       email,
       password,

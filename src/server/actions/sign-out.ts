@@ -4,10 +4,10 @@ import { headers } from "next/headers";
 import { auth } from "../auth";
 import { revalidatePath } from "next/cache";
 
-export default async function SignOutAction(formData: FormData) {
+export default async function SignOutAction(_formData: FormData) {
   const headersList = await headers();
 
-  const response = await auth.api.signOut({
+  await auth.api.signOut({
     headers: headersList,
     asResponse: true,
   });
