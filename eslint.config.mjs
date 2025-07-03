@@ -1,6 +1,6 @@
 import { FlatCompat } from "@eslint/eslintrc";
 import tseslint from "typescript-eslint";
-// @ts-ignore -- no types for this plugin
+// @ts-expect-error -- no types for this plugin
 import drizzle from "eslint-plugin-drizzle";
 
 const compat = new FlatCompat({

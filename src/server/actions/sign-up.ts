@@ -8,7 +8,7 @@ export default async function SignUpAction(formData: FormData) {
   const password = formData.get("password") as string;
   const name = email.split("@")[0];
 
-  const response = await auth.api.signUpEmail({
+  await auth.api.signUpEmail({
     body: {
       email,
       password,

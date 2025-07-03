@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import { text, timestamp, boolean } from "drizzle-orm/pg-core";
 import { createTable } from "./utils";
 
 export const user = createTable("user", {
