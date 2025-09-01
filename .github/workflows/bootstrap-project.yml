@@ -25,11 +25,11 @@ jobs:
           echo "Renaming the project with -n(name) ${{ env.REPOSITORY_NAME }}"
           .github/rename_project.sh -n ${{ env.REPOSITORY_NAME }}
 
-      - name: Remove github actions
+      - name: Remove bootstrap-project workflow
         run: |
-          echo "Removing github actions from the project"
-          rm -rf .github/
-          echo "Removed .github directory"
+          echo "Removing bootstrap-project workflow from the project"
+          rm -f .github/workflows/bootstrap-project.yml
+          echo "Removed bootstrap-project workflow"
 
       - name: Commit bootstrap
         uses: stefanzweifel/git-auto-commit-action@v5

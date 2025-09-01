@@ -15,10 +15,11 @@ export default tseslint.config(
   {
     files: ["**/*.ts", "**/*.tsx"],
     plugins: {
+      tseslint,
       drizzle,
     },
     extends: [
-      ...tseslint.configs.recommended,
+      // ...tseslint.configs.recommended,
       ...tseslint.configs.recommendedTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
     ],

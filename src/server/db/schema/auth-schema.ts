@@ -1,6 +1,7 @@
 import { text, timestamp, boolean } from "drizzle-orm/pg-core";
 import { createTable } from "./utils";
 
+/** @internal */
 export const user = createTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
@@ -11,6 +12,7 @@ export const user = createTable("user", {
   updatedAt: timestamp("updated_at").notNull(),
 });
 
+/** @internal */
 export const session = createTable("session", {
   id: text("id").primaryKey(),
   expiresAt: timestamp("expires_at").notNull(),
@@ -24,6 +26,7 @@ export const session = createTable("session", {
     .references(() => user.id, { onDelete: "cascade" }),
 });
 
+/** @internal */
 export const account = createTable("account", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),
@@ -42,6 +45,7 @@ export const account = createTable("account", {
   updatedAt: timestamp("updated_at").notNull(),
 });
 
+/** @internal */
 export const verification = createTable("verification", {
   id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),
