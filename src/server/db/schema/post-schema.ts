@@ -5,6 +5,7 @@ import { sql } from "drizzle-orm";
 import { index } from "drizzle-orm/pg-core";
 import { createTable } from "./utils";
 
+/** @internal */
 export const posts = createTable(
   "post",
   (d) => ({
@@ -18,5 +19,3 @@ export const posts = createTable(
   }),
   (t) => [index("name_idx").on(t.name)]
 );
-
-export * from "./auth-schema";
