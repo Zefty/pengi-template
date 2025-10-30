@@ -1,28 +1,26 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import tseslint from "typescript-eslint";
-// @ts-expect-error -- no types for this plugin
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+import prettier from "eslint-config-prettier/flat";
 import drizzle from "eslint-plugin-drizzle";
 
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-});
-
-export default tseslint.config(
-  {
-    ignores: [".next"],
-  },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+const config = defineConfig(
+  ...nextVitals,
+  ...nextTs,
+  prettier,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
   {
     files: ["**/*.ts", "**/*.tsx"],
     plugins: {
-      tseslint,
       drizzle,
     },
-    extends: [
-      // ...tseslint.configs.recommended,
-      ...tseslint.configs.recommendedTypeChecked,
-      ...tseslint.configs.stylisticTypeChecked,
-    ],
     rules: {
       "@typescript-eslint/array-type": "off",
       "@typescript-eslint/consistent-type-definitions": "off",
@@ -60,3 +58,5 @@ export default tseslint.config(
     },
   }
 );
+
+export default config;
