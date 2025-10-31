@@ -28,14 +28,10 @@ To use this template
 
 You're now ready to start building with a full-stack, type-safe Next.js setup!
 
+Note: this project now uses pnpm as the default package manager!
+
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
