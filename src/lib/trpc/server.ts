@@ -1,10 +1,10 @@
 import "server-only";
 
-import { createHydrationHelpers } from "@trpc/react-query/rsc";
+import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import { headers } from "next/headers";
 import { cache } from "react";
 
-import { createCaller, type AppRouter } from "~/server/api/trpc/root";
+import { appRouter, createCaller } from "~/server/api/trpc/root";
 import { createTRPCContext } from "~/server/api/trpc";
 import { createQueryClient } from "./query-client";
 
@@ -21,10 +21,23 @@ const createContext = cache(async () => {
   });
 });
 
-const getQueryClient = cache(createQueryClient);
-const caller = createCaller(createContext);
+/**
+ * Server QueryClient that is used for SSR and SSG
+ */
+export const getQueryClient = cache(createQueryClient);
 
-export const { trpc: api, HydrateClient } = createHydrationHelpers<AppRouter>(
-  caller,
-  getQueryClient
-);
+/**
+ * To prefetch queries from server components, we create a proxy from our router.
+ * This method ensures that the query client's is populated by the server.
+ */
+export const trpc = createTRPCOptionsProxy({
+  ctx: createContext,
+  router: appRouter,
+  queryClient: getQueryClient,
+});
+
+/**
+ * A server caller to access data directly in a server component.
+ * This method is detached from the query client, so the data is not stored in the cache.
+ */
+export const api = createCaller(createContext);

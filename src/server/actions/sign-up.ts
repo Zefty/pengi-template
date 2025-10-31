@@ -1,21 +1,33 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { auth } from "../auth";
+import { type Result } from "~/lib/entities/common";
+import { redirect } from "next/navigation";
+import { tryCatch } from "~/lib/utils/common";
 
-export default async function SignUpAction(formData: FormData) {
+type SignUpEmailResponse = Awaited<ReturnType<typeof auth.api.signUpEmail>>;
+
+export default async function SignUpAction(
+  state: Result<SignUpEmailResponse, Error> | null,
+  formData: FormData
+) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const name = email.split("@")[0];
 
-  await auth.api.signUpEmail({
-    body: {
-      email,
-      password,
-      name,
-    },
-    asResponse: true,
-  });
+  const response = await tryCatch(
+    auth.api.signUpEmail({
+      body: {
+        email,
+        password,
+        name,
+      },
+    })
+  );
 
-  revalidatePath("/");
+  if (response.value) {
+    redirect("/");
+  }
+
+  return response;
 }
