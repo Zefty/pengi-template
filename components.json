@@ -12,7 +12,7 @@
   },
   "aliases": {
     "components": "~/client",
-    "utils": "~/lib/utils",
+    "utils": "~/lib/utils/react",
     "ui": "~/client/shadcn",
     "lib": "~/lib",
     "hooks": "~/client/hooks"
